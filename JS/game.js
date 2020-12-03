@@ -24,7 +24,7 @@ $(document).keydown(function () {
 
 function nextSequence () {
     userClickedPattern = [];
-    
+
     var randomNumber = Math.floor(Math.random() * 4);
     var randomColourChooser = buttonColours[randomNumber];
     gamePattern.push(randomColourChooser);
@@ -39,14 +39,29 @@ function nextSequence () {
 
 function checkSequence (idx) {
     if (gamePattern[idx] == userClickedPattern[idx]) {
-        console.log("success");
-        setTimeout(function () {
-            nextSequence();
-        }, 1000);
+        if (gamePattern.length === userClickedPattern.length) {
+            console.log("success");
+            setTimeout(function () {
+                nextSequence();
+            }, 1000);
+        }
     }
     else {
         console.log("wrong");
+        playSound("wrong");
+        $("body").addClass("game-over");
+        $("#level-title").text("Game Over, Press Any Key to Restart");
+        setTimeout(function () {
+            $("body").removeClass("game-over");
+        }, 200);
+        startOver();
     }
+}
+
+function startOver () {
+    level = 0;
+    gamePattern = [];
+    started = false;
 }
 
 function playSound (name) {
