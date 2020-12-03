@@ -66,6 +66,7 @@ function startOver () {
 
 function playSound (name) {
     var buttonAudio = new Audio('sounds/' + name + '.mp3');
+    buttonAudio.load();
     buttonAudio.play();
 }
 
